@@ -9,7 +9,8 @@ import type { Router } from '../../http/router.js';
 import type { Ctx } from '../../http/context.js';
 import type { AccountStatus } from '../../types/domain.js';
 import { requireAdmin } from '../../middleware/auth.js';
-import { toPublicUser, userStore } from '../../data/store.js';
+import { toPublicUser } from '../../data/mappers.js';
+import { userRepository } from '../../data/userRepository.js';
 
 const VALID_STATUSES: AccountStatus[] = ['pending_review', 'approved', 'rejected'];
 
@@ -17,17 +18,17 @@ function isStatus(value: string): value is AccountStatus {
   return (VALID_STATUSES as string[]).includes(value);
 }
 
-function updateStatus(ctx: Ctx, status: AccountStatus): void {
-  if (!requireAdmin(ctx)) return;
+async function updateStatus(ctx: Ctx, status: AccountStatus): Promise<void> {
+  if (!(await requireAdmin(ctx))) return;
 
   const id = ctx.params.id || '';
-  const target = userStore.findById(id);
+  const target = await userRepository.findById(id);
   if (!target || target.role === 'admin') {
     ctx.json(404, { ok: false, error: 'Account not found.' });
     return;
   }
 
-  const updated = userStore.setStatus(id, status);
+  const updated = await userRepository.setStatus(id, status);
   if (!updated) {
     ctx.json(404, { ok: false, error: 'Account not found.' });
     return;
@@ -36,21 +37,16 @@ function updateStatus(ctx: Ctx, status: AccountStatus): void {
 }
 
 export function registerAdminRoutes(router: Router): void {
-  router.get('/v1/admin/users', (ctx) => {
-    if (!requireAdmin(ctx)) return;
+  router.get('/v1/admin/users', async (ctx) => {
+    if (!(await requireAdmin(ctx))) return;
 
     const statusFilter = ctx.query.status || '';
-    let learners = userStore.all().filter((user) => user.role !== 'admin');
+    const status = statusFilter && isStatus(statusFilter) ? statusFilter : undefined;
 
-    if (statusFilter && isStatus(statusFilter)) {
-      learners = learners.filter((user) => user.status === statusFilter);
-    }
+    const learners = await userRepository.listLearners(status);
+    const counts = await userRepository.counts();
 
-    const items = learners
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-      .map(toPublicUser);
-
-    ctx.json(200, { ok: true, items, counts: userStore.counts() });
+    ctx.json(200, { ok: true, items: learners.map(toPublicUser), counts });
   });
 
   router.post('/v1/admin/users/:id/approve', (ctx) => updateStatus(ctx, 'approved'));

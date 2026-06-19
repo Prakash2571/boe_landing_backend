@@ -33,7 +33,7 @@ function sendAuthResult(ctx: Ctx, result: ServiceResult<AuthSuccess>, successSta
 }
 
 export function registerAuthRoutes(router: Router): void {
-  router.post('/v1/auth/signup', (ctx) => {
+  router.post('/v1/auth/signup', async (ctx) => {
     if (!isSignupAllowed(ctx)) {
       ctx.json(403, { ok: false, message: 'Signup is not allowed from this origin.' });
       return;
@@ -45,10 +45,10 @@ export function registerAuthRoutes(router: Router): void {
       return;
     }
 
-    sendAuthResult(ctx, registerUser(values), 201);
+    sendAuthResult(ctx, await registerUser(values), 201);
   });
 
-  router.post('/v1/auth/login', (ctx) => {
+  router.post('/v1/auth/login', async (ctx) => {
     const body = asObject(ctx.body);
     const identifier = typeof body.identifier === 'string' ? body.identifier.trim() : '';
     const password = typeof body.password === 'string' ? body.password : '';
@@ -58,7 +58,7 @@ export function registerAuthRoutes(router: Router): void {
       return;
     }
 
-    sendAuthResult(ctx, authenticate(identifier, password), 200);
+    sendAuthResult(ctx, await authenticate(identifier, password), 200);
   });
 
   router.post('/v1/auth/logout', (ctx) => {

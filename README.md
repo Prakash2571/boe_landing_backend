@@ -7,22 +7,33 @@ host stays private behind a reverse proxy.
 
 ## Highlights
 
-- **Pure TypeScript**, **zero runtime dependencies** — runs on Node's built-in
-  `http` and `crypto` modules only. No framework install required.
-- Strict `tsc` build (ESM, NodeNext).
-- In-memory data store seeded with sample courses, plans, and accounts — swap
-  `src/data/store.ts` for a real database without touching route code.
+- **TypeScript**, strict `tsc` build (ESM, NodeNext).
+- **MongoDB** persistence via a connection **URL string** (`MONGODB_URI`) using
+  the official `mongodb` driver.
+- HTTP layer runs on Node's built-in `http` module (no web framework).
+- Data access is isolated in `src/data/*Repository.ts` — swap the storage
+  engine without touching any route code.
+- Collections are auto-seeded with sample courses, plans, and accounts on first
+  run (idempotent — only seeds when empty).
 
-## Commands
+## Requirements
+
+- Node.js >= 18
+- A reachable MongoDB instance (local `mongod`, Docker, or MongoDB Atlas).
+
+## Setup & commands
 
 ```bash
-npm run build    # compile src -> dist with tsc
-npm start         # run the compiled server (dist/index.js)
-npm run dev       # build + start
+npm install                # installs the mongodb driver + typescript
+cp .env.example .env       # set MONGODB_URI (and secrets) as needed
+npm run build              # compile src -> dist with tsc
+npm start                   # run the compiled server (dist/index.js)
+npm run dev                 # build + start
 ```
 
-The server listens on `http://127.0.0.1:47502` by default. See `.env.example`
-for configuration.
+On startup the server connects to `MONGODB_URI`, ensures indexes, seeds starter
+data if empty, then listens on `http://127.0.0.1:47502` by default. See
+`.env.example` for all configuration.
 
 ## Folder structure
 
@@ -31,10 +42,13 @@ Feature-based and easy to follow — each concern lives in its own folder:
 ```
 src/
   index.ts                 entry point (starts the server)
-  server.ts                http server: CORS, body read, dispatch
+  server.ts                http server: connect to Mongo, seed, dispatch
   routes.ts                registers every feature's routes + health
   config/
-    env.ts                 environment configuration with safe defaults
+    env.ts                 environment config (PORT, MONGODB_URI, secrets)
+  db/
+    client.ts              MongoDB connection (URL string) + typed collections
+    seed.ts                idempotent seeding of users/courses/plans
   http/
     context.ts             request context: body, cookies, query, json()
     router.ts              tiny method + ":param" path router
@@ -47,9 +61,14 @@ src/
     id.ts                  random id generation
     validation.ts          signup + lead input validation
   data/
-    store.ts               in-memory users + leads store (seeded)
-    courses.ts             seed course catalog
-    plans.ts               seed access plans
+    userRepository.ts      MongoDB account queries
+    leadRepository.ts      MongoDB lead-capture writes
+    courseRepository.ts    published course catalog
+    planRepository.ts      published access plans
+    mappers.ts             document -> client-shape mapping
+    courses.ts             course seed data
+    plans.ts               plan seed data
+    seedUsers.ts           account seed data (admin + demo learners)
   features/
     auth/                  signup / login / logout
     public/                public courses + plans
@@ -57,7 +76,7 @@ src/
     onboarding/            lead-capture form endpoint
   types/
     domain.ts              shared domain types
-    node-builtins.d.ts     minimal Node typings (keeps the build dependency-free)
+    node-builtins.d.ts     minimal Node typings (keeps the build dependency-light)
 ```
 
 ## API
@@ -87,5 +106,5 @@ forwards from the browser.
 | Learner (pending) | `asha@example.com` / `asha_rao` | `Password123` |
 | Learner (approved) | `vikram@example.com` / `vikram_s` | `Password123` |
 
-> Seed data lives in memory and resets on restart. Replace the data layer with a
-> real database for production.
+> Seed data is inserted into MongoDB on first run (when a collection is empty).
+> Drop the database to re-seed.

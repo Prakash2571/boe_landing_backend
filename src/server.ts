@@ -7,6 +7,8 @@ import { env } from './config/env.js';
 import { createContext, readJsonBody } from './http/context.js';
 import { buildRouter } from './routes.js';
 import type { Router } from './http/router.js';
+import { connectToDatabase } from './db/client.js';
+import { seedDatabase } from './db/seed.js';
 
 export function createApp(): Server {
   const router = buildRouter();
@@ -55,8 +57,14 @@ async function handle(
   }
 }
 
-export function startServer(): Server {
+export async function startServer(): Promise<Server> {
+  // Connect to MongoDB (via the MONGODB_URI url string) and seed starter data
+  // before accepting traffic.
+  await connectToDatabase();
+  await seedDatabase();
+
   return createApp().listen(env.port, () => {
     console.log(`boe_landing_backend listening on http://127.0.0.1:${env.port}`);
+    console.log(`MongoDB: ${env.mongodbUri} (db: ${env.mongodbDb})`);
   });
 }

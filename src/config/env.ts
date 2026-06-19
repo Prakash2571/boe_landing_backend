@@ -13,6 +13,12 @@ export const env = {
   /** Port the API binds to. The landing page proxies /v1 here (default 47502). */
   port: Number(read('PORT', '47502')),
 
+  /** MongoDB connection URL string. e.g. mongodb://127.0.0.1:27017 or an Atlas SRV URI. */
+  mongodbUri: read('MONGODB_URI', 'mongodb://127.0.0.1:27017'),
+
+  /** Database name to use within the MongoDB server. */
+  mongodbDb: read('MONGODB_DB', 'boe_landing'),
+
   /** Secret used to sign JWT access/refresh tokens. MUST be set in production. */
   jwtSecret: read('JWT_SECRET', 'dev-insecure-jwt-secret-change-me'),
 

@@ -3,7 +3,7 @@ import type { Course } from '../types/domain.js';
 
 const CREATED_AT = '2024-01-01T00:00:00.000Z';
 
-export const courses: Course[] = [
+export const courseSeed: Course[] = [
   {
     id: 'course_money_basics',
     slug: 'money-basics',

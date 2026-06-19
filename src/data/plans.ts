@@ -3,7 +3,7 @@ import type { Plan } from '../types/domain.js';
 
 const CREATED_AT = '2024-01-01T00:00:00.000Z';
 
-export const plans: Plan[] = [
+export const planSeed: Plan[] = [
   {
     id: 'plan_starter',
     slug: 'starter',
