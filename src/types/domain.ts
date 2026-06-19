@@ -51,7 +51,7 @@ export type Plan = {
   name: string;
   tagline: string;
   pricePaise: number;
-  cadence: 'one_time' | 'per_month';
+  cadence: 'one_time' | 'per_month' | 'per_year';
   features: string[];
   ctaLabel: string;
   featured?: boolean;

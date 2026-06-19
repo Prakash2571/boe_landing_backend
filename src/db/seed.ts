@@ -11,8 +11,8 @@ import { hashPassword } from '../lib/password.js';
 
 export async function seedDatabase(): Promise<void> {
   await seedUsers();
-  await seedCourses();
-  await seedPlans();
+  await upsertCourses();
+  await upsertPlans();
 }
 
 async function seedUsers(): Promise<void> {
@@ -35,16 +35,20 @@ async function seedUsers(): Promise<void> {
   console.log(`Seeded ${docs.length} users.`);
 }
 
-async function seedCourses(): Promise<void> {
+// Upsert by slug so newly added catalog entries appear on restart without
+// having to drop the database, while existing documents stay in sync.
+async function upsertCourses(): Promise<void> {
   const courses = collections.courses();
-  if ((await courses.countDocuments({})) > 0) return;
-  await courses.insertMany(courseSeed);
-  console.log(`Seeded ${courseSeed.length} courses.`);
+  for (const course of courseSeed) {
+    await courses.updateOne({ slug: course.slug }, { $set: course }, { upsert: true });
+  }
+  console.log(`Synced ${courseSeed.length} courses.`);
 }
 
-async function seedPlans(): Promise<void> {
+async function upsertPlans(): Promise<void> {
   const plans = collections.plans();
-  if ((await plans.countDocuments({})) > 0) return;
-  await plans.insertMany(planSeed);
-  console.log(`Seeded ${planSeed.length} plans.`);
+  for (const plan of planSeed) {
+    await plans.updateOne({ slug: plan.slug }, { $set: plan }, { upsert: true });
+  }
+  console.log(`Synced ${planSeed.length} plans.`);
 }
