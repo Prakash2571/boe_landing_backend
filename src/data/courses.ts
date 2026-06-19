@@ -11,6 +11,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '6 lessons · self-paced',
     outcome: 'Understand how income, expenses, and cash flow actually work day to day.',
+    description:
+      'A plain-language introduction to how money moves in everyday life — what comes in, what goes out, and how to keep a clear picture of both.',
+    topics: ['Income vs expenses', 'Tracking daily cash flow', 'Needs vs wants', 'Your first money snapshot'],
     image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
@@ -24,6 +27,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '8 lessons · with worksheets',
     outcome: 'Set up a budgeting system you can keep, and track spending without friction.',
+    description:
+      'Practical budgeting methods you can actually stick to, with ready-to-use worksheets for monthly planning and expense tracking.',
+    topics: ['Choosing a budgeting method', 'Monthly budget worksheets', 'Categorising spending', 'Reviewing and adjusting'],
     image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80',
     pricePaise: 59900,
     status: 'published',
@@ -37,6 +43,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '5 lessons · self-paced',
     outcome: 'Build a steady saving habit and a realistic emergency buffer.',
+    description:
+      'Learn how to save consistently and size an emergency fund that fits your real life, so unexpected costs do not derail you.',
+    topics: ['Why an emergency fund matters', 'How much to save', 'Automating savings', 'Where to keep your buffer'],
     image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
@@ -50,6 +59,9 @@ export const courseSeed: Course[] = [
     level: 'Intermediate',
     format: '7 lessons · with templates',
     outcome: 'Plan debt repayment clearly and understand how credit scores work.',
+    description:
+      'Understand different kinds of debt, build a clear repayment plan, and learn what actually affects your credit score.',
+    topics: ['Good vs costly debt', 'Repayment strategies', 'How credit scores work', 'Avoiding debt traps'],
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
     pricePaise: 69900,
     status: 'published',
@@ -63,6 +75,9 @@ export const courseSeed: Course[] = [
     level: 'Intermediate',
     format: '6 lessons · self-paced',
     outcome: 'Get comfortable with everyday tax terms, records, and documentation.',
+    description:
+      'Demystify common tax terms and learn which records to keep and how to stay organised through the year.',
+    topics: ['Common tax terms', 'Documents to keep', 'Staying organised year-round', 'Avoiding last-minute stress'],
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
     pricePaise: 59900,
     status: 'published',
@@ -76,6 +91,9 @@ export const courseSeed: Course[] = [
     level: 'All levels',
     format: '8 lessons · household worksheets',
     outcome: 'Create practical systems for shared household money decisions.',
+    description:
+      'Build simple systems for managing money as a household, from shared budgets to talking about money together.',
+    topics: ['Shared household budgets', 'Splitting responsibilities', 'Planning for big expenses', 'Talking about money'],
     image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80',
     pricePaise: 79900,
     status: 'published',
@@ -89,6 +107,9 @@ export const courseSeed: Course[] = [
     level: 'Intermediate',
     format: '7 lessons · with trackers',
     outcome: 'Smooth out irregular income and build dependable cash-flow habits.',
+    description:
+      'Strategies for managing unpredictable freelance income, smoothing cash flow, and setting money aside for taxes and lean months.',
+    topics: ['Handling irregular income', 'Smoothing cash flow', 'Setting aside for taxes', 'Planning for lean months'],
     image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80',
     pricePaise: 69900,
     status: 'published',
@@ -102,6 +123,9 @@ export const courseSeed: Course[] = [
     level: 'Intermediate',
     format: '6 lessons · self-paced',
     outcome: 'Read cash flow with confidence and plan around lean and busy months.',
+    description:
+      'Understand the basics of business cash flow so you can read the numbers and plan ahead through busy and quiet periods.',
+    topics: ['Cash flow basics', 'Reading inflows and outflows', 'Planning for seasonality', 'Building a cash buffer'],
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
     pricePaise: 69900,
     status: 'published',
@@ -115,6 +139,9 @@ export const courseSeed: Course[] = [
     level: 'All levels',
     format: '5 lessons · with explainers',
     outcome: 'Follow financial news without jargon and know what actually matters.',
+    description:
+      'Learn how to read financial and economic news critically, cut through the jargon, and focus on what is relevant to you.',
+    topics: ['Decoding financial jargon', 'Separating signal from noise', 'Finding reliable sources', 'Connecting news to your money'],
     image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
@@ -128,6 +155,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '6 lessons · self-paced',
     outcome: 'Make calmer, clearer money decisions using simple repeatable checks.',
+    description:
+      'Build simple, repeatable habits and checklists that help you make calmer, more confident spending decisions.',
+    topics: ['Spending triggers', 'Decision checklists', 'Avoiding impulse buys', 'Value-based spending'],
     image: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
@@ -141,6 +171,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '6 lessons · with checklists',
     outcome: 'Understand common types of insurance and how protection fits a money plan.',
+    description:
+      'A beginner-friendly overview of common insurance types and how protection fits into an overall money plan — purely educational.',
+    topics: ['Types of insurance', 'What cover actually means', 'Reading a policy', 'Protection without over-insuring'],
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
     pricePaise: 59900,
     status: 'published',
@@ -154,6 +187,9 @@ export const courseSeed: Course[] = [
     level: 'All levels',
     format: '7 lessons · with planners',
     outcome: 'Set realistic long-term money goals and break them into steady, doable steps.',
+    description:
+      'Turn big, far-off money goals into clear milestones with steady steps you can follow over months and years.',
+    topics: ['Defining long-term goals', 'Milestones and timelines', 'Staying on track', 'Reviewing progress'],
     image: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=800&q=80',
     pricePaise: 69900,
     status: 'published',
@@ -167,6 +203,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '5 lessons · self-paced',
     outcome: 'Use UPI, cards, and online payments safely and spot common money scams.',
+    description:
+      'Practical safety habits for UPI, cards, and online payments, plus how to recognise and avoid common money scams.',
+    topics: ['Safe UPI and card use', 'Spotting scams and phishing', 'Protecting your details', 'What to do if defrauded'],
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
@@ -180,6 +219,9 @@ export const courseSeed: Course[] = [
     level: 'Intermediate',
     format: '5 lessons · with examples',
     outcome: 'Read your bank, card, and loan statements with confidence and catch errors.',
+    description:
+      'Learn to read bank, card, and loan statements line by line so you understand charges and can catch errors quickly.',
+    topics: ['Anatomy of a statement', 'Understanding charges and fees', 'Spotting errors', 'Reconciling your records'],
     image: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80',
     pricePaise: 54900,
     status: 'published',
@@ -193,6 +235,9 @@ export const courseSeed: Course[] = [
     level: 'Beginner',
     format: '6 lessons · with trackers',
     outcome: 'Build dedicated saving buckets for specific goals and keep them on track.',
+    description:
+      'Set up dedicated saving buckets for specific goals and use trackers to keep each one moving forward.',
+    topics: ['Defining saving goals', 'Creating saving buckets', 'Using trackers', 'Staying motivated'],
     image: 'https://images.unsplash.com/photo-1593672715438-d88a70629abe?auto=format&fit=crop&w=800&q=80',
     pricePaise: 49900,
     status: 'published',
